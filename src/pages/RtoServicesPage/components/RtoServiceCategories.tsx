@@ -6,6 +6,7 @@ import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const RtoServiceCategories: React.FC = () => {
   const categories = [
@@ -23,7 +24,7 @@ export const RtoServiceCategories: React.FC = () => {
         'Address change & personal details correction',
         'Additional vehicle class/category endorsements',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with a driving licence service in TS/AP.',
+      whatsappMsg: CTA_MESSAGES.rto.drivingLicence,
       cta: 'Licence Inquiry',
     },
     {
@@ -40,7 +41,7 @@ export const RtoServiceCategories: React.FC = () => {
         'Commercial transport vehicle registration paperwork',
         'Vehicle chassis & engine number verification support',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with vehicle registration documentation.',
+      whatsappMsg: CTA_MESSAGES.rto.registration,
       cta: 'Registration Inquiry',
     },
     {
@@ -57,7 +58,7 @@ export const RtoServiceCategories: React.FC = () => {
         'Name correction on vehicle registration book',
         'Inter-district vehicle jurisdiction transfer assistance',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with vehicle RC and ownership transfer.',
+      whatsappMsg: CTA_MESSAGES.rto.rcTransfer,
       cta: 'RC Transfer Inquiry',
     },
     {
@@ -74,7 +75,7 @@ export const RtoServiceCategories: React.FC = () => {
         'Traffic challan retrieval and clearance guidance',
         'Pollution & insurance documentation checking',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with an NOC or vehicle transport service.',
+      whatsappMsg: CTA_MESSAGES.rto.noc,
       cta: 'NOC / Permit Inquiry',
     },
   ];

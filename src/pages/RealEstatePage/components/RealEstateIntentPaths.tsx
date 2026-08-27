@@ -6,6 +6,7 @@ import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const RealEstateIntentPaths: React.FC = () => {
   const paths = [
@@ -22,7 +23,7 @@ export const RealEstateIntentPaths: React.FC = () => {
         'Direct connection with genuine property sellers',
         'Property document checking assistance',
       ],
-      whatsappMessage: 'Hello TMR, I am looking to buy property in Hyderabad. I would like to discuss my requirements.',
+      whatsappMessage: CTA_MESSAGES.realEstate.buy,
       ctaLabel: 'Inquire to Buy Property',
     },
     {
@@ -38,7 +39,7 @@ export const RealEstateIntentPaths: React.FC = () => {
         'Direct negotiation and transaction coordination',
         'Assistance for plots, residential & commercial properties',
       ],
-      whatsappMessage: 'Hello TMR, I have a property in Hyderabad that I would like to discuss for sale.',
+      whatsappMessage: CTA_MESSAGES.realEstate.sell,
       ctaLabel: 'Inquire to Sell Property',
     },
     {
@@ -54,7 +55,7 @@ export const RealEstateIntentPaths: React.FC = () => {
         'Direct coordination between landlord and tenant',
         'Rental agreement facilitation and handoff',
       ],
-      whatsappMessage: 'Hello TMR, I am looking for rental property in Hyderabad. I would like to discuss my requirements.',
+      whatsappMessage: CTA_MESSAGES.realEstate.rent,
       ctaLabel: 'Inquire for Rentals',
     },
   ];

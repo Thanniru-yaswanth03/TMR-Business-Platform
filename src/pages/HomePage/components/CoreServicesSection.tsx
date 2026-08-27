@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const CoreServicesSection: React.FC = () => {
   const realEstateServices = [
@@ -89,7 +90,7 @@ export const CoreServicesSection: React.FC = () => {
               <WhatsAppCTA
                 size="md"
                 variant="emerald"
-                message="Hello TMR Services, I am looking for property assistance in Hyderabad."
+                message={CTA_MESSAGES.realEstate.hero}
               >
                 Inquire on WhatsApp
               </WhatsAppCTA>
@@ -146,7 +147,7 @@ export const CoreServicesSection: React.FC = () => {
               <WhatsAppCTA
                 size="md"
                 variant="emerald"
-                message="Hello TMR Services, I need assistance with RTO / vehicle documentation in Telangana or Andhra Pradesh."
+                message={CTA_MESSAGES.rto.general}
               >
                 Inquire on WhatsApp
               </WhatsAppCTA>

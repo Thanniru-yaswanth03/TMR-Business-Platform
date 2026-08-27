@@ -6,6 +6,7 @@ import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 interface ServiceOption {
   id: string;
@@ -37,7 +38,7 @@ export const QuickServiceSelector: React.FC = () => {
         'Licence renewal, duplicate DL, and address updates',
         'Name/details correction & class endorsements (MCWG, LMV)',
       ],
-      whatsappMessage: 'Hello TMR, I need assistance with a driving licence service. Please let me know the process and requirements.',
+      whatsappMessage: CTA_MESSAGES.rto.drivingLicence,
     },
     {
       id: 'reg',
@@ -53,7 +54,7 @@ export const QuickServiceSelector: React.FC = () => {
         'State tax calculation guidance and challan documentation',
         'Commercial transport vehicle registration paperwork',
       ],
-      whatsappMessage: 'Hello TMR, I need assistance with vehicle registration. Please let me know the process and requirements.',
+      whatsappMessage: CTA_MESSAGES.rto.registration,
     },
     {
       id: 'rc',
@@ -69,7 +70,7 @@ export const QuickServiceSelector: React.FC = () => {
         'Duplicate RC smart card application for lost/damaged cards',
         'Address change & correction on existing RC records',
       ],
-      whatsappMessage: 'Hello TMR, I need assistance with RC/ownership-related work. Please let me know the process and requirements.',
+      whatsappMessage: CTA_MESSAGES.rto.rcTransfer,
     },
     {
       id: 'noc',
@@ -85,7 +86,7 @@ export const QuickServiceSelector: React.FC = () => {
         'Interstate relocation clearance documentation assistance',
         'Crime records & non-involvement verification guidance',
       ],
-      whatsappMessage: 'Hello TMR, I need assistance with an NOC-related vehicle service. Please let me know the process and requirements.',
+      whatsappMessage: CTA_MESSAGES.rto.noc,
     },
     {
       id: 'other',
@@ -101,7 +102,7 @@ export const QuickServiceSelector: React.FC = () => {
         'Road tax receipt retrieval and payment guidance',
         'General transport department procedure consultation',
       ],
-      whatsappMessage: 'Hello TMR, I need assistance with a vehicle-related service in TS/AP. Please let me know the process.',
+      whatsappMessage: CTA_MESSAGES.rto.general,
     },
   ];
 

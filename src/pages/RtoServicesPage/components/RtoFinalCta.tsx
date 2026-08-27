@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 import { Car, ShieldCheck, MapPin } from 'lucide-react';
 
 export const RtoFinalCta: React.FC = () => {
@@ -40,7 +41,7 @@ export const RtoFinalCta: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <WhatsAppCTA
             size="lg"
-            message="Hello TMR, I need assistance with a licence or vehicle service in Telangana or Andhra Pradesh."
+            message={CTA_MESSAGES.rto.general}
             className="shadow-lg hover:shadow-xl"
           >
             WhatsApp TMR Directly
@@ -51,7 +52,7 @@ export const RtoFinalCta: React.FC = () => {
             variant="gold"
             className="shadow-lg hover:shadow-xl"
           >
-            {BUSINESS_DETAILS.contact.phone ? `Call ${BUSINESS_DETAILS.contact.phone}` : 'Call TMR Directly'}
+            Call TMR Directly
           </PhoneCTA>
         </div>
 

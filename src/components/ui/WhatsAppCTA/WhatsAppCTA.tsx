@@ -1,7 +1,7 @@
 import React from 'react';
 import { MessageSquare } from 'lucide-react';
 import { Button, ButtonProps } from '@/components/ui/Button';
-import { BUSINESS_DETAILS } from '@/config/env';
+import { buildWhatsAppUrl, BUSINESS_WHATSAPP_RAW, CTA_MESSAGES } from '@/config/contact';
 
 export interface WhatsAppCTAProps extends Omit<ButtonProps, 'href' | 'to' | 'external'> {
   message?: string;
@@ -10,20 +10,18 @@ export interface WhatsAppCTAProps extends Omit<ButtonProps, 'href' | 'to' | 'ext
 }
 
 export const WhatsAppCTA: React.FC<WhatsAppCTAProps> = ({
-  message = 'Hello TMR Services, I would like to inquire about your services.',
-  phoneNumber = BUSINESS_DETAILS.contact.whatsapp,
+  message = CTA_MESSAGES.home.general,
+  phoneNumber = BUSINESS_WHATSAPP_RAW,
   badge,
   variant = 'emerald',
   size = 'md',
   children = 'Chat on WhatsApp',
   leftIcon = <MessageSquare className="w-4 h-4 shrink-0" aria-hidden="true" />,
   className,
+  'aria-label': ariaLabel = 'Contact TMR on WhatsApp',
   ...rest
 }) => {
-  const cleanNumber = phoneNumber ? phoneNumber.replace(/\D/g, '') : '';
-  const url = cleanNumber
-    ? `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`
-    : `https://wa.me/?text=${encodeURIComponent(message)}`;
+  const url = buildWhatsAppUrl(phoneNumber, message);
 
   return (
     <Button
@@ -33,7 +31,7 @@ export const WhatsAppCTA: React.FC<WhatsAppCTAProps> = ({
       size={size}
       leftIcon={leftIcon}
       className={className}
-      aria-label="Contact TMR Services on WhatsApp"
+      aria-label={ariaLabel}
       {...rest}
     >
       <span>{children}</span>
@@ -45,3 +43,4 @@ export const WhatsAppCTA: React.FC<WhatsAppCTAProps> = ({
     </Button>
   );
 };
+

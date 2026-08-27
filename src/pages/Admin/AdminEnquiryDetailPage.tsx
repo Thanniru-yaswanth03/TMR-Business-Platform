@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -20,6 +20,7 @@ import { EnquiryStatus } from '@/types/enquiry';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { buildCustomerWhatsAppUrl, buildCustomerPhoneUrl } from '@/config/contact';
 
 export const AdminEnquiryDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,44 +30,43 @@ export const AdminEnquiryDetailPage: React.FC = () => {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchDetail = async () => {
-      if (!id) return;
+  const fetchEnquiryDetail = useCallback(async () => {
+    if (!id) return;
+    try {
       setIsLoading(true);
       setError(null);
-      try {
-        const item = await AdminService.getEnquiryById(id);
-        if (item) {
-          setEnquiry(item);
-        } else {
-          setError('Enquiry not found or invalid record ID.');
-        }
-      } catch {
-        setError('Error fetching enquiry details.');
-      } finally {
-        setIsLoading(false);
+      const data = await AdminService.getEnquiryById(id);
+      if (data) {
+        setEnquiry(data);
+      } else {
+        setError('Enquiry not found or invalid record ID.');
       }
-    };
-
-    fetchDetail();
+    } catch {
+      setError('Network or server error while loading enquiry detail.');
+    } finally {
+      setIsLoading(false);
+    }
   }, [id]);
+
+  useEffect(() => {
+    fetchEnquiryDetail();
+  }, [fetchEnquiryDetail]);
 
   const handleStatusChange = async (newStatus: EnquiryStatus) => {
     if (!id || !enquiry || enquiry.status === newStatus || isUpdatingStatus) return;
-
-    setIsUpdatingStatus(true);
-    setStatusMessage(null);
     try {
+      setIsUpdatingStatus(true);
+      setStatusMessage(null);
       const updated = await AdminService.updateStatus(id, newStatus);
       if (updated) {
         setEnquiry(updated);
         setStatusMessage(`Status updated to ${newStatus}`);
-        setTimeout(() => setStatusMessage(null), 4000);
+        setTimeout(() => setStatusMessage(null), 3000);
       } else {
         setError('Failed to update enquiry status.');
       }
     } catch {
-      setError('Connection error updating status.');
+      setStatusMessage('Failed to update status.');
     } finally {
       setIsUpdatingStatus(false);
     }
@@ -74,9 +74,8 @@ export const AdminEnquiryDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="p-20 text-center text-slate-400 space-y-3">
-        <Loader2 className="w-8 h-8 animate-spin mx-auto text-brand-navy-900" />
-        <p className="text-sm font-semibold text-brand-navy-950">Loading enquiry details...</p>
+      <div className="flex items-center justify-center py-24">
+        <Loader2 className="w-8 h-8 animate-spin text-brand-gold-600" />
       </div>
     );
   }
@@ -98,9 +97,8 @@ export const AdminEnquiryDetailPage: React.FC = () => {
     );
   }
 
-  const cleanPhone = enquiry.phone.replace(/\D/g, '');
-  const waCustomerMessage = `Hello ${enquiry.name}, this is TMR regarding your enquiry.`;
-  const whatsappUrl = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${encodeURIComponent(waCustomerMessage)}`;
+  const whatsappUrl = buildCustomerWhatsAppUrl(enquiry.phone, enquiry.name);
+  const phoneUrl = buildCustomerPhoneUrl(enquiry.phone);
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
@@ -160,21 +158,23 @@ export const AdminEnquiryDetailPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Direct Actions */}
+          {/* Quick Direct Actions Targeting the Customer */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-emerald-700 text-white text-xs font-bold hover:bg-brand-emerald-800 transition-all shadow-xs"
+              aria-label={`Contact ${enquiry.name} on WhatsApp`}
             >
               <MessageSquare className="w-4 h-4" />
               <span>Contact on WhatsApp</span>
             </a>
 
             <a
-              href={`tel:${cleanPhone}`}
+              href={phoneUrl}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-gold-600 text-brand-navy-950 text-xs font-bold hover:bg-brand-gold-500 transition-all shadow-xs"
+              aria-label={`Call customer ${enquiry.name}`}
             >
               <Phone className="w-4 h-4" />
               <span>Call Customer</span>

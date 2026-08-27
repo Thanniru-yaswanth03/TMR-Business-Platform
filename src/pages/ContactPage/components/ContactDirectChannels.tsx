@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const ContactDirectChannels: React.FC = () => {
   return (
@@ -35,7 +36,7 @@ export const ContactDirectChannels: React.FC = () => {
           <WhatsAppCTA
             size="md"
             fullWidth
-            message="Hello TMR, I would like to discuss a requirement."
+            message={CTA_MESSAGES.contact.general}
           >
             Start WhatsApp Chat
           </WhatsAppCTA>
@@ -68,7 +69,7 @@ export const ContactDirectChannels: React.FC = () => {
 
         <CardContent className="p-0 pt-2 space-y-3">
           <PhoneCTA size="md" variant="gold" fullWidth>
-            {BUSINESS_DETAILS.contact.phone ? `Call ${BUSINESS_DETAILS.contact.phone}` : 'Call TMR Directly'}
+            Call TMR Directly
           </PhoneCTA>
 
           <p className="text-[11px] text-slate-500 text-center">

@@ -2,6 +2,7 @@ import { createApp } from './app.js';
 import { serverEnv } from './config/env.js';
 import { connectDB, disconnectDB } from './config/db.js';
 
+// Main application entrypoint
 async function startServer(): Promise<void> {
   // Connect to Database
   await connectDB();

@@ -14,6 +14,7 @@ import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const PropertyCategoriesSection: React.FC = () => {
   const categories = [
@@ -130,7 +131,7 @@ export const PropertyCategoriesSection: React.FC = () => {
             size="sm"
             variant="emerald"
             className="shrink-0"
-            message="Hello TMR, I would like to inquire about property options in Hyderabad."
+            message={CTA_MESSAGES.realEstate.general}
           >
             Ask on WhatsApp
           </WhatsAppCTA>

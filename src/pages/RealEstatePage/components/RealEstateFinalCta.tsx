@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 import { Building2, ShieldCheck, MapPin } from 'lucide-react';
 
 export const RealEstateFinalCta: React.FC = () => {
@@ -40,7 +41,7 @@ export const RealEstateFinalCta: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <WhatsAppCTA
             size="lg"
-            message="Hello TMR, I am looking for property assistance in Hyderabad. I would like to discuss my requirements."
+            message={CTA_MESSAGES.realEstate.general}
             className="shadow-lg hover:shadow-xl"
           >
             Discuss on WhatsApp
@@ -51,7 +52,7 @@ export const RealEstateFinalCta: React.FC = () => {
             variant="gold"
             className="shadow-lg hover:shadow-xl"
           >
-            {BUSINESS_DETAILS.contact.phone ? `Call ${BUSINESS_DETAILS.contact.phone}` : 'Call TMR Directly'}
+            Call TMR Directly
           </PhoneCTA>
         </div>
 

@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const AboutPage: React.FC = () => {
   return (
@@ -80,7 +81,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center gap-3">
-              <WhatsAppCTA message="Hello TMR Services, I would like to learn more about your background and services.">
+              <WhatsAppCTA message={CTA_MESSAGES.home.general}>
                 Chat on WhatsApp
               </WhatsAppCTA>
               <Button

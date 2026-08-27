@@ -1,7 +1,7 @@
 import React from 'react';
 import { Phone } from 'lucide-react';
 import { Button, ButtonProps } from '@/components/ui/Button';
-import { BUSINESS_DETAILS } from '@/config/env';
+import { buildPhoneUrl, BUSINESS_PHONE_INTL, BUSINESS_PHONE_DISPLAY } from '@/config/contact';
 
 export interface PhoneCTAProps extends Omit<ButtonProps, 'href' | 'to' | 'external'> {
   phoneNumber?: string;
@@ -9,31 +9,32 @@ export interface PhoneCTAProps extends Omit<ButtonProps, 'href' | 'to' | 'extern
 }
 
 export const PhoneCTA: React.FC<PhoneCTAProps> = ({
-  phoneNumber = BUSINESS_DETAILS.contact.phone,
+  phoneNumber = BUSINESS_PHONE_INTL,
   displayNumber,
   variant = 'primary',
   size = 'md',
   children,
   leftIcon = <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />,
   className,
+  'aria-label': ariaLabel,
   ...rest
 }) => {
-  const cleanNumber = phoneNumber ? phoneNumber.replace(/\s+/g, '') : '';
-  const href = cleanNumber ? `tel:${cleanNumber}` : '/contact';
-  const label = children || (displayNumber || (phoneNumber ? `Call ${phoneNumber}` : 'Call TMR'));
+  const href = buildPhoneUrl(phoneNumber);
+  const label = children || displayNumber || (phoneNumber === BUSINESS_PHONE_INTL ? `Call ${BUSINESS_PHONE_DISPLAY}` : `Call ${phoneNumber}`);
+  const resolvedAriaLabel = ariaLabel || (typeof label === 'string' ? label : 'Call TMR');
 
   return (
     <Button
-      href={cleanNumber ? href : undefined}
-      to={!cleanNumber ? '/contact' : undefined}
+      href={href}
       variant={variant}
       size={size}
       leftIcon={leftIcon}
       className={className}
-      aria-label={typeof label === 'string' ? label : 'Call TMR Services'}
+      aria-label={resolvedAriaLabel}
       {...rest}
     >
       {label}
     </Button>
   );
 };
+

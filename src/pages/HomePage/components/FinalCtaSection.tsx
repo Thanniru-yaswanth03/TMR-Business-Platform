@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 import { ShieldCheck, Building2, Car } from 'lucide-react';
 
 export const FinalCtaSection: React.FC = () => {
@@ -40,7 +41,7 @@ export const FinalCtaSection: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
           <WhatsAppCTA
             size="lg"
-            message="Hello TMR Services, I need assistance with your services."
+            message={CTA_MESSAGES.home.general}
             className="shadow-lg hover:shadow-xl"
           >
             WhatsApp TMR Directly

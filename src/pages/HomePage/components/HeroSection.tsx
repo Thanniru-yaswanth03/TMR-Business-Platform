@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -17,15 +18,19 @@ export const HeroSection: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Subtle glow accent */}
+      {/* Decorative ambient background blur */}
       <div
-        className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-brand-gold-500/10 blur-3xl pointer-events-none"
+        className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-brand-gold-500/10 blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-brand-emerald-500/10 blur-3xl pointer-events-none"
         aria-hidden="true"
       />
 
       <Container size="xl" className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Core Value Proposition & Primary Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          {/* Left Column: Direct Value Proposition */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2">
               <Badge variant="gold" withDot>
@@ -45,7 +50,7 @@ export const HeroSection: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <WhatsAppCTA
                 size="lg"
-                message="Hello TMR Services, I would like to inquire about your property or vehicle services."
+                message={CTA_MESSAGES.home.hero}
               >
                 WhatsApp TMR
               </WhatsAppCTA>

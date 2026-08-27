@@ -148,7 +148,7 @@ export const EnquiryForm: React.FC = () => {
             Thank You, {form.name}
           </CardTitle>
           <CardDescription className="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
-            Your enquiry has been received. TMR will contact you using the details provided.
+            Thank you. Your enquiry has been received. TMR will contact you using the details provided.
           </CardDescription>
         </div>
 

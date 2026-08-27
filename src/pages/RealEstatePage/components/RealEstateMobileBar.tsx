@@ -1,6 +1,6 @@
-import React from 'react';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const RealEstateMobileBar: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ export const RealEstateMobileBar: React.FC = () => {
         <WhatsAppCTA
           size="sm"
           fullWidth
-          message="Hello TMR, I am looking for real estate assistance in Hyderabad."
+          message={CTA_MESSAGES.realEstate.hero}
         >
           WhatsApp
         </WhatsAppCTA>

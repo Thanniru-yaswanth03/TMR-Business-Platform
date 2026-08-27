@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const RealEstateHowItWorks: React.FC = () => {
   const steps = [
@@ -108,7 +109,7 @@ export const RealEstateHowItWorks: React.FC = () => {
         <div className="text-center pt-4">
           <WhatsAppCTA
             size="lg"
-            message="Hello TMR, I would like to discuss my property requirement in Hyderabad."
+            message={CTA_MESSAGES.realEstate.hero}
           >
             Start Property Discussion
           </WhatsAppCTA>

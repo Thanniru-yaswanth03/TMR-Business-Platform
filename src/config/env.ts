@@ -1,12 +1,20 @@
+import {
+  BUSINESS_NAME,
+  BUSINESS_SHORT_NAME,
+  BUSINESS_OWNER,
+  BUSINESS_PHONE_INTL,
+  BUSINESS_WHATSAPP_RAW,
+} from './contact';
+
 /**
  * Type-safe environment configuration with default fallbacks.
  */
 export const ENV = {
-  APP_NAME: import.meta.env.VITE_APP_NAME || 'TMR Real Estate & RTO Services',
-  APP_SHORT_NAME: import.meta.env.VITE_APP_SHORT_NAME || 'TMR Services',
+  APP_NAME: import.meta.env.VITE_APP_NAME || BUSINESS_NAME,
+  APP_SHORT_NAME: import.meta.env.VITE_APP_SHORT_NAME || BUSINESS_SHORT_NAME,
   
-  CONTACT_PHONE: import.meta.env.VITE_CONTACT_PHONE || '',
-  CONTACT_WHATSAPP: import.meta.env.VITE_CONTACT_WHATSAPP || '',
+  CONTACT_PHONE: import.meta.env.VITE_CONTACT_PHONE || BUSINESS_PHONE_INTL,
+  CONTACT_WHATSAPP: import.meta.env.VITE_CONTACT_WHATSAPP || BUSINESS_WHATSAPP_RAW,
   
   LOCATION_CITY: import.meta.env.VITE_LOCATION_CITY || 'Hyderabad',
   LOCATION_REGION: import.meta.env.VITE_LOCATION_REGION || 'Telangana & Andhra Pradesh',
@@ -21,7 +29,7 @@ export const ENV = {
 export const BUSINESS_DETAILS = {
   name: ENV.APP_NAME,
   shortName: ENV.APP_SHORT_NAME,
-  owner: 'Thanniru Malli Karjuna Rao',
+  owner: BUSINESS_OWNER,
   realEstateExperienceYears: 5,
   rtoExperienceYears: 20,
   locations: {

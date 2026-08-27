@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const HyderabadFocusSection: React.FC = () => {
   return (
@@ -67,7 +68,7 @@ export const HyderabadFocusSection: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <WhatsAppCTA
                 size="md"
-                message="Hello TMR, I have a property requirement in Hyderabad that I would like to discuss."
+                message={CTA_MESSAGES.realEstate.general}
               >
                 Discuss Hyderabad Property
               </WhatsAppCTA>

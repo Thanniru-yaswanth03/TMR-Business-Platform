@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const RtoHero: React.FC = () => {
   return (
@@ -44,7 +45,7 @@ export const RtoHero: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <WhatsAppCTA
                 size="lg"
-                message="Hello TMR, I need assistance with a licence or vehicle service in TS/AP. Please let me know the process."
+                message={CTA_MESSAGES.rto.general}
               >
                 WhatsApp TMR
               </WhatsAppCTA>

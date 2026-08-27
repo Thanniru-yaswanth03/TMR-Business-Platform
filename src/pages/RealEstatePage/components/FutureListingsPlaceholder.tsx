@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 
 export const FutureListingsPlaceholder: React.FC = () => {
   return (
@@ -53,7 +54,7 @@ export const FutureListingsPlaceholder: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
             <WhatsAppCTA
               size="md"
-              message="Hello TMR, I am looking for a specific property opportunity in Hyderabad. Here are my requirements:"
+              message={CTA_MESSAGES.realEstate.general}
             >
               Send Requirement on WhatsApp
             </WhatsAppCTA>

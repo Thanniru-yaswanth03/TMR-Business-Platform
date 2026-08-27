@@ -9,6 +9,7 @@ import { Heading } from '@/components/ui/Heading';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
 import { PhoneCTA } from '@/components/ui/PhoneCTA';
+import { CTA_MESSAGES } from '@/config/contact';
 import { RtoMobileBar } from './components/RtoMobileBar';
 
 export const DrivingLicencePage: React.FC = () => {
@@ -24,7 +25,7 @@ export const DrivingLicencePage: React.FC = () => {
         'Age proof and address proof documentation guidance',
         'Valid for 6 months across India',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with a Learner Licence (LLR) in TS/AP.',
+      whatsappMsg: CTA_MESSAGES.rto.drivingLicence,
     },
     {
       id: 'dl',
@@ -37,7 +38,7 @@ export const DrivingLicencePage: React.FC = () => {
         'Biometrics, photo, and signature appointment coordination',
         'Smart card dispatch guidance to registered address',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with Permanent Driving Licence (DL) testing & process.',
+      whatsappMsg: CTA_MESSAGES.rto.drivingLicence,
     },
     {
       id: 'renewal',
@@ -50,7 +51,7 @@ export const DrivingLicencePage: React.FC = () => {
         'Late renewal procedure guidance for licences expired >1 year',
         'Smart card re-issuance processing',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with renewing my driving licence.',
+      whatsappMsg: CTA_MESSAGES.rto.drivingLicence,
     },
     {
       id: 'duplicate-corrections',
@@ -63,7 +64,7 @@ export const DrivingLicencePage: React.FC = () => {
         'Name and personal detail correction paperwork',
         'Non-availability report & FIR/lost certificate guidance',
       ],
-      whatsappMsg: 'Hello TMR, I need assistance with duplicate driving licence or details correction.',
+      whatsappMsg: CTA_MESSAGES.rto.drivingLicence,
     },
   ];
 
@@ -102,7 +103,7 @@ export const DrivingLicencePage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <WhatsAppCTA
                 size="lg"
-                message="Hello TMR, I need assistance with driving licence services in Telangana or Andhra Pradesh."
+                message={CTA_MESSAGES.rto.drivingLicence}
               >
                 Discuss Licence on WhatsApp
               </WhatsAppCTA>
@@ -236,7 +237,7 @@ export const DrivingLicencePage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <WhatsAppCTA
               size="lg"
-              message="Hello TMR, I would like to get guidance on driving licence procedures."
+              message={CTA_MESSAGES.rto.drivingLicence}
             >
               WhatsApp TMR Directly
             </WhatsAppCTA>

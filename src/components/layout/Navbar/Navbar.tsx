@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Building2, Car } from 'lucide-react';
 import { PRIMARY_NAV_ITEMS } from '@/config/navigation';
 import { BUSINESS_DETAILS } from '@/config/env';
+import { buildPhoneUrl, BUSINESS_PHONE_DISPLAY } from '@/config/contact';
 import { Container } from '@/components/ui/Container';
 import { Logo } from '@/components/ui/Logo';
 import { WhatsAppCTA } from '@/components/ui/WhatsAppCTA';
@@ -41,7 +42,8 @@ export const Navbar: React.FC = () => {
     };
   }, [isOpen]);
 
-  const cleanPhone = BUSINESS_DETAILS.contact.phone ? BUSINESS_DETAILS.contact.phone.replace(/\s+/g, '') : '';
+  const phoneUrl = buildPhoneUrl(BUSINESS_DETAILS.contact.phone);
+  const displayPhone = BUSINESS_DETAILS.contact.phone || BUSINESS_PHONE_DISPLAY;
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-navbar transition-all">
@@ -61,24 +63,14 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            {cleanPhone ? (
-              <a
-                href={`tel:${cleanPhone}`}
-                className="flex items-center gap-1.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
-                aria-label={`Call ${BUSINESS_DETAILS.contact.phone}`}
-              >
-                <Phone className="w-3 h-3 text-brand-gold-400" aria-hidden="true" />
-                <span>{BUSINESS_DETAILS.contact.phone}</span>
-              </a>
-            ) : (
-              <NavLink
-                to="/contact"
-                className="flex items-center gap-1.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
-              >
-                <Phone className="w-3 h-3 text-brand-gold-400" aria-hidden="true" />
-                <span>Call TMR Directly</span>
-              </NavLink>
-            )}
+            <a
+              href={phoneUrl}
+              className="flex items-center gap-1.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
+              aria-label={`Call TMR on ${displayPhone}`}
+            >
+              <Phone className="w-3 h-3 text-brand-gold-400" aria-hidden="true" />
+              <span>{displayPhone}</span>
+            </a>
           </div>
         </Container>
       </div>

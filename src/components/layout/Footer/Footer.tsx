@@ -3,21 +3,15 @@ import { Link } from 'react-router-dom';
 import { Phone, MapPin, MessageSquare, Building2, ShieldCheck, AlertCircle } from 'lucide-react';
 import { BUSINESS_DETAILS } from '@/config/env';
 import { FOOTER_SERVICE_LINKS } from '@/config/navigation';
+import { buildPhoneUrl, buildWhatsAppUrl, BUSINESS_PHONE_DISPLAY, CTA_MESSAGES } from '@/config/contact';
 import { Container } from '@/components/ui/Container';
 import { Logo } from '@/components/ui/Logo';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const cleanWhatsappNumber = BUSINESS_DETAILS.contact.whatsapp.replace(/\D/g, '');
-  const whatsappUrl = cleanWhatsappNumber
-    ? `https://wa.me/${cleanWhatsappNumber}?text=${encodeURIComponent(
-        'Hello TMR Services, I would like to inquire about your services.'
-      )}`
-    : `https://wa.me/?text=${encodeURIComponent(
-        'Hello TMR Services, I would like to inquire about your services.'
-      )}`;
-
-  const cleanPhone = BUSINESS_DETAILS.contact.phone ? BUSINESS_DETAILS.contact.phone.replace(/\s+/g, '') : '';
+  const whatsappUrl = buildWhatsAppUrl(BUSINESS_DETAILS.contact.whatsapp, CTA_MESSAGES.home.general);
+  const phoneUrl = buildPhoneUrl(BUSINESS_DETAILS.contact.phone);
+  const displayPhone = BUSINESS_DETAILS.contact.phone || BUSINESS_PHONE_DISPLAY;
 
   return (
     <footer className="bg-brand-navy-950 text-slate-300 pt-16 pb-12 border-t border-brand-navy-900">
@@ -88,23 +82,14 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                {cleanPhone ? (
-                  <a
-                    href={`tel:${cleanPhone}`}
-                    className="flex items-center gap-2.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
-                  >
-                    <Phone className="w-4 h-4 text-brand-gold-400 shrink-0" aria-hidden="true" />
-                    <span>{BUSINESS_DETAILS.contact.phone}</span>
-                  </a>
-                ) : (
-                  <Link
-                    to="/contact"
-                    className="flex items-center gap-2.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
-                  >
-                    <Phone className="w-4 h-4 text-brand-gold-400 shrink-0" aria-hidden="true" />
-                    <span>Direct Phone Call</span>
-                  </Link>
-                )}
+                <a
+                  href={phoneUrl}
+                  className="flex items-center gap-2.5 text-slate-300 hover:text-brand-gold-300 transition-colors"
+                  aria-label={`Call TMR on ${displayPhone}`}
+                >
+                  <Phone className="w-4 h-4 text-brand-gold-400 shrink-0" aria-hidden="true" />
+                  <span>{displayPhone}</span>
+                </a>
               </li>
               <li>
                 <a
