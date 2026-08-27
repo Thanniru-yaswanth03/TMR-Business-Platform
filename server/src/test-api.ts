@@ -283,6 +283,92 @@ async function runTests() {
     assert(res.status === 401, '15. Revoked session rejected by /api/auth/me (401)', `Got ${res.status}`);
   }
 
+  // 16. Input Validation: Invalid phone number rejected (400)
+  {
+    const res = await request(app)
+      .post('/api/enquiries')
+      .send({
+        name: 'Invalid Phone User',
+        phone: '12345', // invalid length & prefix
+        type: 'REAL_ESTATE',
+        transactionType: 'BUY',
+      });
+    assert(res.status === 400, '16. Invalid phone number rejected (400)', `Got ${res.status}`);
+    assert(res.body.success === false, '16b. Returns validation error structure');
+  }
+
+  // 17. Input Validation: Missing required fields rejected (400)
+  {
+    const res = await request(app)
+      .post('/api/enquiries')
+      .send({
+        // Missing name and phone
+        type: 'REAL_ESTATE',
+      });
+    assert(res.status === 400, '17. Missing required fields rejected (400)', `Got ${res.status}`);
+  }
+
+  // 18. Input Validation: Invalid enum value rejected (400)
+  {
+    const res = await request(app)
+      .post('/api/enquiries')
+      .send({
+        name: 'Test Visitor',
+        phone: '9876543210',
+        type: 'INVALID_ENUM_TYPE',
+      });
+    assert(res.status === 400, '18. Invalid enquiry enum type rejected (400)', `Got ${res.status}`);
+  }
+
+  // 19. NoSQL Injection Defense: Object passed in phone/name field rejected (400)
+  {
+    const res = await request(app)
+      .post('/api/enquiries')
+      .send({
+        name: { $ne: '' },
+        phone: { $gt: '' },
+        type: 'REAL_ESTATE',
+      });
+    assert(res.status === 400, '19. NoSQL operator injection in body rejected (400)', `Got ${res.status}`);
+  }
+
+  // 20. Excessive string length rejected (400)
+  {
+    const res = await request(app)
+      .post('/api/enquiries')
+      .send({
+        name: 'A'.repeat(150), // exceeds max 100
+        phone: '9876543210',
+        type: 'REAL_ESTATE',
+      });
+    assert(res.status === 400, '20. Excessive name length rejected by schema (400)', `Got ${res.status}`);
+  }
+
+  // 21. Malformed ObjectId in admin detail request handled safely (404, not 500)
+  {
+    // Re-login to get fresh valid session
+    const loginRes = await request(app)
+      .post('/api/auth/login')
+      .send({
+        username: serverEnv.ADMIN_USERNAME,
+        password: serverEnv.ADMIN_PASSWORD,
+      });
+    const freshToken = loginRes.body.data?.token || '';
+
+    const res = await request(app)
+      .get('/api/admin/enquiries/invalid-mongo-id-123')
+      .set('Authorization', `Bearer ${freshToken}`);
+
+    assert(res.status === 404, '21. Malformed ObjectId returns 404 without internal server error (500)', `Got ${res.status}`);
+  }
+
+  // 22. Unknown route returns 404 error without stack trace
+  {
+    const res = await request(app).get('/api/non-existent-endpoint');
+    assert(res.status === 404, '22. Non-existent API route returns 404', `Got ${res.status}`);
+    assert(res.body.success === false, '22b. Returns standard error JSON format');
+  }
+
   console.log(`\n📊 Test Results: ${passedCount}/${totalCount} tests passed.\n`);
   if (passedCount !== totalCount) {
     process.exit(1);

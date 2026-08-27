@@ -28,9 +28,7 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction):
   if (origin && serverEnv.NODE_ENV === 'production') {
     try {
       const originUrl = new URL(origin);
-      const allowedOrigins = Array.isArray(serverEnv.CORS_ORIGIN)
-        ? serverEnv.CORS_ORIGIN
-        : [serverEnv.CORS_ORIGIN];
+      const allowedOrigins = serverEnv.CORS_ORIGIN.split(',').map((o) => o.trim());
 
       const isAllowed = allowedOrigins.some((allowed) => {
         if (allowed === '*') return true;
