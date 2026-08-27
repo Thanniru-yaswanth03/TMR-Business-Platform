@@ -26,7 +26,7 @@ export class AuthController {
       res.cookie(serverEnv.COOKIE_NAME, token, {
         httpOnly: true,
         secure: serverEnv.NODE_ENV === 'production',
-        sameSite: 'lax',
+        sameSite: serverEnv.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         path: '/',
       });
@@ -69,7 +69,7 @@ export class AuthController {
     res.clearCookie(serverEnv.COOKIE_NAME, {
       httpOnly: true,
       secure: serverEnv.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: serverEnv.NODE_ENV === 'production' ? 'none' : 'lax',
       path: '/',
     });
 

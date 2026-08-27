@@ -9,6 +9,18 @@ import { EnquiryStatus } from '@/types/enquiry';
 
 export class AdminService {
   private static baseUrl = ENV.API_BASE_URL;
+  private static TOKEN_KEY = 'tmr_admin_jwt';
+
+  private static getHeaders(extraHeaders: Record<string, string> = {}): Record<string, string> {
+    const headers: Record<string, string> = { ...extraHeaders };
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY);
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+    }
+    return headers;
+  }
 
   /**
    * Logs in the single administrator
@@ -25,7 +37,7 @@ export class AdminService {
         body: JSON.stringify({ username, password }),
       });
 
-      let json: { success?: boolean; error?: string; data?: { user?: AdminUser } } = {};
+      let json: { success?: boolean; error?: string; data?: { user?: AdminUser; token?: string } } = {};
       try {
         json = await response.json();
       } catch {
@@ -43,6 +55,11 @@ export class AdminService {
           success: false,
           error: json.error || `Server returned error (${response.status}). Please try again.`,
         };
+      }
+
+      // Persist fallback token for cross-origin Bearer header requests
+      if (json.data?.token && typeof window !== 'undefined') {
+        localStorage.setItem(this.TOKEN_KEY, json.data.token);
       }
 
       return {
@@ -65,11 +82,20 @@ export class AdminService {
     try {
       await fetch(`${this.baseUrl}/auth/logout`, {
         method: 'POST',
+        headers: this.getHeaders(),
         credentials: 'include',
       });
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(this.TOKEN_KEY);
+        sessionStorage.removeItem(this.TOKEN_KEY);
+      }
       return true;
     } catch (err) {
       console.error('Admin logout error:', err);
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(this.TOKEN_KEY);
+        sessionStorage.removeItem(this.TOKEN_KEY);
+      }
       return false;
     }
   }
@@ -80,6 +106,7 @@ export class AdminService {
   static async getMe(): Promise<{ authenticated: boolean; user?: AdminUser }> {
     try {
       const response = await fetch(`${this.baseUrl}/auth/me`, {
+        headers: this.getHeaders(),
         credentials: 'include',
       });
 
@@ -112,6 +139,7 @@ export class AdminService {
 
       const url = `${this.baseUrl}/admin/enquiries?${params.toString()}`;
       const response = await fetch(url, {
+        headers: this.getHeaders(),
         credentials: 'include',
       });
 
@@ -133,6 +161,7 @@ export class AdminService {
   static async getEnquiryById(id: string): Promise<AdminEnquiryItem | null> {
     try {
       const response = await fetch(`${this.baseUrl}/admin/enquiries/${id}`, {
+        headers: this.getHeaders(),
         credentials: 'include',
       });
 
@@ -155,7 +184,7 @@ export class AdminService {
     try {
       const response = await fetch(`${this.baseUrl}/admin/enquiries/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: this.getHeaders({ 'Content-Type': 'application/json' }),
         credentials: 'include',
         body: JSON.stringify({ status }),
       });
