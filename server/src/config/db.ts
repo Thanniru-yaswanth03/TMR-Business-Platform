@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 import { serverEnv } from './env.js';
 
 let isConnected = false;
@@ -19,17 +19,20 @@ export async function connectDB(): Promise<void> {
     return;
   }
 
+  const connectOptions: ConnectOptions = {
+    maxPoolSize: 10,
+    minPoolSize: 2,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+    autoIndex: serverEnv.NODE_ENV !== 'production',
+  };
+
   try {
-    const conn = await mongoose.connect(serverEnv.MONGODB_URI, {
-      maxPoolSize: 10,
-      minPoolSize: 2,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      autoIndex: serverEnv.NODE_ENV !== 'production',
-    });
+    const conn = await mongoose.connect(serverEnv.MONGODB_URI, connectOptions);
 
     isConnected = conn.connection.readyState === 1;
-    console.log(`✅ MongoDB Connected (${sanitizeMongoUri(conn.connection.host || '')})`);
+    const hostName = conn.connection.host || 'connected';
+    console.log(`✅ MongoDB Connected (${sanitizeMongoUri(hostName)})`);
   } catch (error) {
     const safeError = error instanceof Error ? error.message : 'Database connection error';
     console.error('❌ MongoDB Connection Error:', safeError);
@@ -49,7 +52,7 @@ export async function connectDB(): Promise<void> {
     console.log('✅ MongoDB Reconnected');
   });
 
-  mongoose.connection.on('error', (err) => {
+  mongoose.connection.on('error', (err: Error) => {
     const safeError = err instanceof Error ? err.message : 'Database runtime error';
     console.error('❌ MongoDB Runtime Error:', safeError);
   });

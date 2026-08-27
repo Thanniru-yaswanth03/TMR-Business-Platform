@@ -10,6 +10,9 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx src/test-api.ts"
   },
+  "engines": {
+    "node": ">=20.0.0 <23.0.0"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
@@ -20,6 +23,7 @@
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.10.1",
+    "tmr-business-platform": "file:..",
     "zod": "^3.24.2"
   },
   "devDependencies": {

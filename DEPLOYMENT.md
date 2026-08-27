@@ -46,7 +46,7 @@ This document details the step-by-step procedure for deploying the **TMR Real Es
    - **Name**: `tmr-backend-api`
    - **Root Directory**: `server`
    - **Environment**: `Node`
-   - **Build Command**: `npm install && npm run build`
+   - **Build Command**: `npm install --include=dev && npm run build` *(ensures TypeScript compiler and @types packages are installed during the build step when NODE_ENV=production)*
    - **Start Command**: `npm start` (runs `node dist/server.js`)
    - **Instance Type**: `Free`
 5. **Set Backend Environment Variables**:
