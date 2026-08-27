@@ -42,15 +42,17 @@ export const RealEstateHero: React.FC = () => {
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 w-full sm:w-auto">
               <WhatsAppCTA
                 size="lg"
+                fullWidth
+                className="sm:w-auto"
                 message={CTA_MESSAGES.realEstate.hero}
               >
                 Discuss Your Requirement
               </WhatsAppCTA>
 
-              <PhoneCTA size="lg" variant="gold">
+              <PhoneCTA size="lg" variant="gold" fullWidth className="sm:w-auto">
                 Call TMR
               </PhoneCTA>
             </div>

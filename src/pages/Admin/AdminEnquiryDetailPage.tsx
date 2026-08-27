@@ -159,12 +159,12 @@ export const AdminEnquiryDetailPage: React.FC = () => {
           </div>
 
           {/* Quick Direct Actions Targeting the Customer */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-emerald-700 text-white text-xs font-bold hover:bg-brand-emerald-800 transition-all shadow-xs"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-emerald-700 text-white text-xs font-bold hover:bg-brand-emerald-800 transition-all shadow-xs w-full sm:w-auto"
               aria-label={`Contact ${enquiry.name} on WhatsApp`}
             >
               <MessageSquare className="w-4 h-4" />
@@ -173,7 +173,7 @@ export const AdminEnquiryDetailPage: React.FC = () => {
 
             <a
               href={phoneUrl}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-gold-600 text-brand-navy-950 text-xs font-bold hover:bg-brand-gold-500 transition-all shadow-xs"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-gold-600 text-brand-navy-950 text-xs font-bold hover:bg-brand-gold-500 transition-all shadow-xs w-full sm:w-auto"
               aria-label={`Call customer ${enquiry.name}`}
             >
               <Phone className="w-4 h-4" />

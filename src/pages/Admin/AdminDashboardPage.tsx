@@ -99,20 +99,20 @@ export const AdminDashboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <Button
             variant="outline"
             size="sm"
             onClick={fetchDashboardData}
             disabled={isLoading}
-            className="flex items-center gap-1.5 bg-white text-xs"
+            className="flex items-center gap-1.5 bg-white text-xs flex-1 sm:flex-initial justify-center"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
           </Button>
 
-          <Link to="/admin/enquiries">
-            <Button variant="primary" size="sm" className="flex items-center gap-1.5 text-xs">
+          <Link to="/admin/enquiries" className="flex-1 sm:flex-initial">
+            <Button variant="primary" size="sm" className="flex items-center gap-1.5 text-xs w-full justify-center">
               <Inbox className="w-3.5 h-3.5" />
               <span>View All Enquiries</span>
             </Button>
@@ -132,7 +132,7 @@ export const AdminDashboardPage: React.FC = () => {
       )}
 
       {/* Overview Metric Cards Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* Total Enquiries */}
         <Card variant="default" className="bg-white border border-slate-200 p-4 rounded-xl shadow-2xs space-y-2">
           <div className="flex items-center justify-between text-slate-500">
@@ -229,7 +229,7 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-700">
+              <table className="w-full text-left text-xs text-slate-700 min-w-[650px]">
                 <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-500 border-b border-slate-100 font-semibold">
                   <tr>
                     <th className="py-3 px-4 sm:px-6">Customer</th>

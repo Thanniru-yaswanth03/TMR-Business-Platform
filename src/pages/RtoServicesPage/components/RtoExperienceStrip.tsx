@@ -35,19 +35,19 @@ export const RtoExperienceStrip: React.FC = () => {
   ];
 
   return (
-    <section className="bg-surface-card border-b border-slate-200/80 py-8 shadow-subtle relative z-20">
+    <section className="bg-surface-card border-b border-slate-200/80 py-6 sm:py-8 shadow-subtle relative z-20">
       <Container size="xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-          {stats.map((stat, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {stats.map((stat) => (
             <div
               key={stat.title}
-              className={`flex items-start gap-4 ${idx !== 0 ? 'pt-4 sm:pt-0 sm:pl-6 lg:pl-8' : ''}`}
+              className="flex items-start gap-3.5 p-4 rounded-xl bg-surface-muted/60 border border-slate-200/60 transition-all hover:bg-surface-muted"
             >
-              <div className="p-2.5 rounded-xl bg-surface-muted shrink-0 border border-slate-200/60 mt-1">
+              <div className="p-2.5 rounded-xl bg-white shrink-0 border border-slate-200/80 shadow-2xs mt-0.5">
                 {stat.icon}
               </div>
-              <div className="space-y-0.5">
-                <div className="flex items-baseline gap-1.5">
+              <div className="space-y-0.5 min-w-0 flex-1">
+                <div className="flex items-baseline gap-1.5 flex-wrap">
                   <span className="font-heading font-extrabold text-2xl lg:text-3xl text-brand-navy-950 tracking-tight">
                     {stat.value}
                   </span>
@@ -57,7 +57,7 @@ export const RtoExperienceStrip: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <h3 className="font-heading font-bold text-sm text-brand-navy-900 leading-snug">
+                <h3 className="font-heading font-bold text-sm text-brand-navy-900 leading-snug truncate">
                   {stat.title}
                 </h3>
                 <p className="text-xs text-slate-500 leading-normal">
