@@ -25,12 +25,23 @@ export class AdminService {
         body: JSON.stringify({ username, password }),
       });
 
-      const json = await response.json();
+      let json: { success?: boolean; error?: string; data?: { user?: AdminUser } } = {};
+      try {
+        json = await response.json();
+      } catch {
+        json = {};
+      }
 
       if (!response.ok) {
+        if (response.status === 404) {
+          return {
+            success: false,
+            error: 'Backend API not found (404). Please verify VITE_API_BASE_URL on Vercel.',
+          };
+        }
         return {
           success: false,
-          error: json.error || 'Invalid credentials. Please try again.',
+          error: json.error || `Server returned error (${response.status}). Please try again.`,
         };
       }
 
@@ -42,7 +53,7 @@ export class AdminService {
       console.error('Admin login error:', err);
       return {
         success: false,
-        error: 'Could not connect to authentication service.',
+        error: 'Could not connect to backend API. Please check your Render service status & VITE_API_BASE_URL setting.',
       };
     }
   }
