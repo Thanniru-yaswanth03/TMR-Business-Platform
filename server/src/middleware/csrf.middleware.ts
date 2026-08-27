@@ -13,18 +13,9 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction):
     return next();
   }
 
-  // Exempt public enquiry creation from origin restrictions if needed, but still check if caller is an unauthorized cross-origin site
-  // For admin routes and auth state changes:
   const origin = req.headers.origin || req.headers.referer;
-  const secFetchSite = req.headers['sec-fetch-site'];
 
-  // Check Sec-Fetch-Site metadata if provided by modern browser
-  if (secFetchSite === 'cross-site') {
-    ApiResponse.error(res, 'Cross-origin request rejected (CSRF protection)', 403);
-    return;
-  }
-
-  // If origin/referer is present, verify against allowed CORS origins in production
+  // In production, verify that mutating requests come from an authorized frontend origin
   if (origin && serverEnv.NODE_ENV === 'production') {
     try {
       const originUrl = new URL(origin);

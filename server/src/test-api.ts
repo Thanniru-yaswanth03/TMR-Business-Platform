@@ -239,12 +239,15 @@ async function runTests() {
     assert(res.status === 404, '11. Non-existent enquiry ID returns 404', `Got ${res.status}`);
   }
 
-  // 12. CSRF Defense: Cross-site mutating request rejected with 403
+  // 12. CSRF Defense: Unauthorized cross-origin mutating request rejected with 403
   {
+    const originalEnv = serverEnv.NODE_ENV;
+    (serverEnv as { NODE_ENV: string }).NODE_ENV = 'production';
     const res = await request(app)
       .patch('/api/admin/enquiries/507f1f77bcf86cd799439011/status')
-      .set('Sec-Fetch-Site', 'cross-site')
+      .set('Origin', 'https://unauthorized-attacker-site.com')
       .send({ status: 'CLOSED' });
+    (serverEnv as { NODE_ENV: string }).NODE_ENV = originalEnv;
     assert(res.status === 403, '12. Cross-site mutating request blocked by CSRF middleware (403)', `Got ${res.status}`);
   }
 

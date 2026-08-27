@@ -40,7 +40,7 @@ export function createApp(): Express {
         if (isAllowed) {
           return callback(null, true);
         }
-        return callback(new Error(`Blocked by CORS policy: Origin ${origin} not allowed`));
+        return callback(null, false);
       },
       methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
