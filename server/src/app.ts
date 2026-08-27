@@ -17,17 +17,30 @@ export function createApp(): Express {
   app.use(cookieParser());
 
   // CORS Configuration
-  const allowedOrigins = serverEnv.CORS_ORIGIN.split(',').map((origin) => origin.trim());
+  const allowedOrigins = serverEnv.CORS_ORIGIN.split(',').map((origin) =>
+    origin.trim().replace(/\/+$/, '')
+  );
 
   app.use(
     cors({
       origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps, curl, server-to-server)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1 || serverEnv.NODE_ENV === 'development') {
+
+        const normalizedOrigin = origin.trim().replace(/\/+$/, '');
+
+        // Allow exact matches, wildcard, development localhost, or any vercel.app deployment if vercel is in allowedOrigins
+        const isAllowed =
+          allowedOrigins.includes(normalizedOrigin) ||
+          allowedOrigins.includes('*') ||
+          serverEnv.NODE_ENV === 'development' ||
+          (normalizedOrigin.endsWith('.vercel.app') &&
+            allowedOrigins.some((o) => o.includes('vercel.app')));
+
+        if (isAllowed) {
           return callback(null, true);
         }
-        return callback(new Error('Blocked by CORS policy: Origin not allowed'));
+        return callback(new Error(`Blocked by CORS policy: Origin ${origin} not allowed`));
       },
       methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],

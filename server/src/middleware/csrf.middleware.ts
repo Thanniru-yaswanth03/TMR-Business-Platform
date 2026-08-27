@@ -28,17 +28,16 @@ export const csrfProtection = (req: Request, res: Response, next: NextFunction):
   if (origin && serverEnv.NODE_ENV === 'production') {
     try {
       const originUrl = new URL(origin);
-      const allowedOrigins = serverEnv.CORS_ORIGIN.split(',').map((o) => o.trim());
+      const normalizedOrigin = originUrl.origin.replace(/\/+$/, '');
+      const allowedOrigins = serverEnv.CORS_ORIGIN.split(',').map((o) =>
+        o.trim().replace(/\/+$/, '')
+      );
 
-      const isAllowed = allowedOrigins.some((allowed) => {
-        if (allowed === '*') return true;
-        try {
-          const allowedUrl = new URL(allowed);
-          return originUrl.origin === allowedUrl.origin;
-        } catch {
-          return false;
-        }
-      });
+      const isAllowed =
+        allowedOrigins.includes(normalizedOrigin) ||
+        allowedOrigins.includes('*') ||
+        (normalizedOrigin.endsWith('.vercel.app') &&
+          allowedOrigins.some((o) => o.includes('vercel.app')));
 
       if (!isAllowed) {
         ApiResponse.error(res, 'Unauthorized request origin (CSRF protection)', 403);
