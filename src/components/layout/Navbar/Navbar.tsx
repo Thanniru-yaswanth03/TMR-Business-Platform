@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
   const displayPhone = BUSINESS_DETAILS.contact.phone || BUSINESS_PHONE_DISPLAY;
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-navbar transition-all">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200/90 shadow-navbar">
       {/* Top micro-bar for direct contact */}
       <div className="bg-brand-navy-950 text-slate-200 text-xs py-1.5 px-4 hidden sm:block border-b border-brand-navy-900">
         <Container size="xl" className="flex items-center justify-between">
@@ -138,62 +138,73 @@ export const Navbar: React.FC = () => {
         </button>
       </Container>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer & Backdrop */}
       {isOpen && (
-        <div
-          id="mobile-menu"
-          className="md:hidden fixed inset-x-0 top-[65px] sm:top-[81px] bottom-0 bg-brand-navy-950/50 backdrop-blur-sm z-50 flex flex-col"
-        >
-          <div className="bg-white border-b border-slate-200 px-4 py-6 shadow-xl space-y-4 max-h-[85vh] overflow-y-auto">
-            {/* Mobile Nav Links */}
-            <nav className="space-y-1" aria-label="Mobile Navigation">
-              {PRIMARY_NAV_ITEMS.map((item) => (
-                <NavLink
-                  key={item.href}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    `flex items-center justify-between px-3.5 py-3 rounded-xl text-base font-medium transition-colors ${
-                      isActive
-                        ? 'bg-slate-100 text-brand-navy-950 font-bold border border-slate-200'
-                        : 'text-slate-700 hover:bg-slate-50 hover:text-brand-navy-950'
-                    }`
-                  }
-                >
-                  <div className="flex flex-col">
-                    <span>{item.label}</span>
-                    {item.description && (
-                      <span className="text-xs text-slate-500 font-normal mt-0.5">
-                        {item.description}
+        <>
+          {/* Backdrop Overlay */}
+          <div
+            className="md:hidden fixed inset-0 top-16 bg-brand-navy-950/60 z-40"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Slide-down Menu Container */}
+          <div
+            id="mobile-menu"
+            className="md:hidden absolute top-full left-0 right-0 w-full bg-white border-b border-slate-200 shadow-2xl z-50"
+          >
+            <div className="px-4 py-5 space-y-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
+              {/* Mobile Nav Links */}
+              <nav className="space-y-1.5" aria-label="Mobile Navigation">
+                {PRIMARY_NAV_ITEMS.map((item) => (
+                  <NavLink
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                        isActive
+                          ? 'bg-brand-navy-950 text-white shadow-xs'
+                          : 'text-slate-700 hover:bg-slate-100 hover:text-brand-navy-950 bg-slate-50 border border-slate-200/70'
+                      }`
+                    }
+                  >
+                    <div className="flex flex-col">
+                      <span>{item.label}</span>
+                      {item.description && (
+                        <span className="text-[11px] text-slate-400 font-normal mt-0.5">
+                          {item.description}
+                        </span>
+                      )}
+                    </div>
+                    {item.badge && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-gold-500 text-brand-navy-950">
+                        {item.badge}
                       </span>
                     )}
-                  </div>
-                  {item.badge && (
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-brand-navy-100 text-brand-navy-900">
-                      {item.badge}
-                    </span>
-                  )}
-                </NavLink>
-              ))}
-            </nav>
+                  </NavLink>
+                ))}
+              </nav>
 
-            {/* Mobile Quick Action CTAs */}
-            <div className="pt-4 border-t border-slate-200 space-y-2.5">
-              <WhatsAppCTA
-                fullWidth
-                size="md"
-                message="Hello TMR Services, I would like to inquire about your services."
-              >
-                Chat on WhatsApp
-              </WhatsAppCTA>
+              {/* Mobile Quick Action CTAs */}
+              <div className="pt-4 border-t border-slate-100 space-y-2.5">
+                <WhatsAppCTA
+                  fullWidth
+                  size="md"
+                  message="Hello TMR Services, I would like to inquire about your services."
+                >
+                  Chat on WhatsApp
+                </WhatsAppCTA>
 
-              <PhoneCTA
-                variant="outline"
-                size="md"
-                fullWidth
-              />
+                <PhoneCTA
+                  variant="gold"
+                  size="md"
+                  fullWidth
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
