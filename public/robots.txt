@@ -1,0 +1,16 @@
+# Robots.txt for TMR Real Estate & RTO Services
+User-agent: *
+Allow: /
+Allow: /real-estate
+Allow: /rto-services
+Allow: /rto-services/driving-licence
+Allow: /about
+Allow: /contact
+
+# Disallow private admin routes and backend API
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /design-system
+
+Sitemap: https://tmrservices.in/sitemap.xml

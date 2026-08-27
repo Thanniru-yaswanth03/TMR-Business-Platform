@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E233D"/>
+      <stop offset="100%" stop-color="#09182B"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DEC07C"/>
+      <stop offset="100%" stop-color="#B88E36"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Shield / Rounded Seal -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bgGrad)" stroke="#B88E36" stroke-width="2.5"/>
+  
+  <!-- Inner Decorative Border Accent -->
+  <rect x="6" y="6" width="52" height="52" rx="10" fill="none" stroke="#B88E36" stroke-width="0.75" stroke-dasharray="3 2" opacity="0.6"/>
+
+  <!-- TMR Monogram Typography -->
+  <g fill="none" stroke="url(#goldGrad)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Stylized Monogram Graphic -->
+    <text x="32" y="40" 
+          font-family="'Plus Jakarta Sans', 'Cinzel', -apple-system, sans-serif" 
+          font-size="20" 
+          font-weight="800" 
+          letter-spacing="1" 
+          fill="#FAF9F6" 
+          stroke="none" 
+          text-anchor="middle">TMR</text>
+  </g>
+  
+  <!-- Bottom Foundation Bar in Gold -->
+  <rect x="20" y="46" width="24" height="2.5" rx="1" fill="url(#goldGrad)"/>
+</svg>

@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand-navy: 14 35 61;
+    --color-brand-gold: 184 142 54;
+    --color-brand-emerald: 5 150 105;
+    --color-surface-warm: 250 249 246;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface-warm text-slate-900 font-sans antialiased overflow-x-hidden;
+  }
+
+  /* Accessible Focus Rings */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-gold-600 ring-2 ring-brand-gold-500/20;
+  }
+
+  /* Custom Clean Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F4F5F8;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
